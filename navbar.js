@@ -1,43 +1,20 @@
-    let navbarHTMLContent = `
+// Navbar HTML content
+let navbarHTMLContent = `
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <!-- Logo -->
+            <a href="#" class="logo">
+                <img src="assets/bearitt logo.png" alt="Logo" />
+            </a>
 
-        <!-- navbar.html -->
-        <nav class="navbar">
-            <div class="navbar-content">
-                <!-- Hamburger Icon (visible only on mobile) -->
-                <!-- <a id="mobile-menu-toggle" class="fas fa-bars"></a> -->
-                <!-- Logo -->
-                <a href="#" class="logo">
-                    <img src="assets/bearitt logo.png" alt="Logo" />
-                </a>
-
-                <!-- Hamburger Icon (Only visible in mobile view) -->
-                <div class="hamburger" id="hamburger-menu">
-                    <i class="fas fa-bars"></i>
-                </div>
-
-                <!-- Desktop Navigation Links -->
-                <ul class="navbar-links" id="navbar-links">
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="nutrition.html">Services</a></li>
-                    <li><a href="calculator1/calculator.html">Tools</a></li>
-                    <li><a href="community.html">Community</a></li>
-                    <li><a href="#contact">Fitness</a></li>
-                    <li><a href="trainers/index.html">Trainer</a></li>
-                    <li><a href="store/index.html">Shop</a></li>
-                </ul>
-
-                <!-- User Info -->
-                <div class="user-info">
-                    <span id="user-email"></span>
-                    <a href="index.html" class="btn btn-danger ml-3">Sign Out</a>
-                </div>
+            <!-- Hamburger Icon (Mobile Only) -->
+            <div class="hamburger" id="hamburger-menu">
+                <i class="fas fa-bars"></i>
             </div>
-        </nav>
 
-        <!-- Drawer for Mobile -->
-        <div id="mobile-drawer" class="mobile-drawer">
-            <a id="close-drawer" class="fas fa-times"></a>
-            <ul>
+            <!-- Desktop Navigation Links -->
+            <ul class="navbar-links" id="navbar-links">
                 <li><a href="home.html">Home</a></li>
                 <li><a href="nutrition.html">Services</a></li>
                 <li><a href="calculator1/calculator.html">Tools</a></li>
@@ -47,14 +24,50 @@
                 <li><a href="store/index.html">Shop</a></li>
             </ul>
         </div>
+    </nav>
 
-            <link rel="stylesheet" href="navibar-footer.css">
-        <link rel="stylesheet" href="newnavi.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-        <!-- Include jQuery -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    `;
+    <!-- Drawer for Mobile -->
+    <div id="mobile-drawer" class="mobile-drawer">
+        <div id="close-drawer" class="drawer-header">
+            <i class="fas fa-times"></i> 
+        </div>
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="nutrition.html">Services</a></li>
+            <li><a href="calculator1/calculator.html">Tools</a></li>
+            <li><a href="community.html">Community</a></li>
+            <li><a href="store/index.html">Shop</a></li>
+        </ul>
+    </div>
+`;
 
-    document.getElementById('navbar-placeholder').innerHTML = navbarHTMLContent;
+// Insert navbar HTML content into placeholder
+document.getElementById('navbar-placeholder').innerHTML = navbarHTMLContent;
+
+// Drawer toggle functionality
+document.addEventListener("DOMContentLoaded", () => {
+    const hamburgerMenu = document.getElementById("hamburger-menu");
+    const mobileDrawer = document.getElementById("mobile-drawer");
+    const closeDrawer = document.getElementById("close-drawer");
+
+    // Toggle drawer visibility
+    hamburgerMenu.addEventListener("click", () => {
+        mobileDrawer.classList.toggle("open");
+    });
+
+    // Close drawer
+    closeDrawer.addEventListener("click", () => {
+        mobileDrawer.classList.remove("open");
+    });
+
+    // Close drawer when clicking outside
+    document.addEventListener("click", (event) => {
+        if (
+            !mobileDrawer.contains(event.target) &&
+            !hamburgerMenu.contains(event.target) &&
+            mobileDrawer.classList.contains("open")
+        ) {
+            mobileDrawer.classList.remove("open");
+        }
+    });
+});
